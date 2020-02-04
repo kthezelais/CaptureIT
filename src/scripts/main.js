@@ -3,6 +3,18 @@ const auth = solid.auth;
 const fc = new SolidFileClient(auth);
 const popupUri = '../popup.html';
 const x = 'https://kthezelais.solid.community/CaptureIT/';
+var userStoragePOD = "";
+
+// Fonction de téléchargement d'une image
+function downloadURI(uri, name) {
+  var link = document.createElement("a");
+  link.download = name;
+  link.href = uri;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  delete link;
+}
 
 // Gestion de la connexion/déconnexion de l'utilisateur
 $('#login').click(() => solid.auth.popupLogin({ popupUri }));
@@ -22,9 +34,17 @@ $('#submit-2').click(() => {
   alert('Le dossier ' + newFolder + ' a été créé !');
 });
 
+// Télécharge le fichier à l'adresse de l'élément file-to-download
+$('#download').click(() => {
+  downloadURI(userStoragePOD + $('#file-to-download').val(), $('#file-to-download').val());
+});
+
 // Mise à jour des éléments de la page en fonction du statut de la connexion
 solid.auth.trackSession(session => {
   const loggedIn = !!session;
   $('#login-view').toggle(!loggedIn);
   $('#is-connected').toggle(loggedIn);
+  if(loggedIn) {
+    userStoragePOD = session.webId.slice(0, session.webId.length - 16) + "/CaptureIT/";
+  }
 });

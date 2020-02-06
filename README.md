@@ -39,8 +39,7 @@ cd src/
 ws
 </pre>
 
-Le serveur est maintenant actif. Rendez-vous sur un des liens suivant avec votre navigateur web :
-* http://VM-Ubuntu:8000
+Le serveur est maintenant actif. Rendez-vous sur le lien suivant avec votre navigateur web :
 * http://127.0.0.1:8000
 
 ## <b>Application mobile "Proof of concept"</b>

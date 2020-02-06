@@ -13,7 +13,7 @@ Ce projet a été développé sous environnement Linux (distribution Ubuntu 18.0
 * Un POD Solid ( <a href="https://solid.inrupt.com/get-a-solid-pod">Lien pour créer un POD en ligne </a>).
 * Un éditeur de code compatible JavaScript (<a href="https://code.visualstudio.com/download"> VSCode pour notre part </a>).
 
-## <b>Quick start</b>
+## <b>Getting started</b>
 
 Dans cette partie, nous allons vous expliquer comment déployer localement un script JavaScript permettant de créer un répertoire, d'uploader et downloader une image sur votre POD distant solid inrupt (via un serveur en local : en cours de développement).<br>
 Ce script permet de proposer un exemple pratique de l'utilisation des librairies <i><b>solid-auth-client</b></i> et <i><b>solid-file-client</b></i>.
@@ -28,7 +28,10 @@ Ce script permet de proposer un exemple pratique de l'utilisation des librairies
 <pre>git clone https://github.com/kthezelais/CaptureIT.git</pre>
 
 4. Aller sur la branch "push-and-pull-a-picture"
-<pre>git checkout push-and-pull-a-picture</pre>
+<pre>
+cd CaptureIT/
+git checkout push-and-pull-a-picture
+</pre>
 
 5. Lancer le serveur web en local
 <pre>
@@ -39,4 +42,12 @@ ws
 Le serveur est maintenant actif. Rendez-vous sur un des liens suivant avec votre navigateur web :
 * http://VM-Ubuntu:8000
 * http://127.0.0.1:8000
-* http://10.0.2.15:8000
+
+## <b>Application mobile "Proof of concept"</b>
+
+Un POC de la futur application mobile est disponible sur la branch <b>"p-403-poc-ihm"</b> du projet. Pour installer son environnement, suivre les étapes du <b>README</b> associé à cette branche :
+<pre>git checkout p-403-poc-ihm</pre>
+
+## <b>LICENCE</b>
+
+Ce projet est <strong>Open-Source</strong>, et sous licence BSD-2-clause. Pour en savoir plus, se référer à la <b>LICENCE</b>.

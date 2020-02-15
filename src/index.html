@@ -1,15 +1,41 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset='utf-8'>
-    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
-</head>
-<body>
-    <h1>Interface CaptureIT de test</h1>
+<!Doctype html>
+<html lang="fr">
 
-    <script src='main.js'></script>
+<head>
+    <meta charset="utf-8">
+    <title>Test d'upload d'image</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+
+    <div id="login-view">
+        <h1>Connexion</h1>
+
+        Veuillez vous connecter pour accéder au service :
+        <button id="login">Connexion</button>
+    </div>
+
+    <div id="is-connected">
+        <h1>Bonjour <span id="user"></span> !</h1>
+
+        <input id="file" type="file" value="Parcourir">
+        <button id="submit">Envoyer</button></br>
+        <input id="new-folder" type="text" placeholder="Saisir le nom du fichier à créer dans CaptureIT">
+        <button id="submit-2">Envoyer</button></br>
+        <input id="file-to-download" type="text" placeholder="Saisir l'adresse du fichier à télécharger">
+        <button id="download">Télécharger</button></br>
+        <button id="logout">Déconnexion</button>
+    </div>
+
+    <!--   Scripy Javascript   -->
+    <script src="scripts/lib/jquery.js"></script>
+    <script src="scripts/lib/solid-auth-client.bundle.js"></script>
+    <script src="scripts/lib/rdflib.min.js"></script>
+    <script src="scripts/lib/solid-file-client.bundle.js"></script>
+    <script src="scripts/main.js"></script>
+    <!--   #################   -->
+
 </body>
+
 </html>

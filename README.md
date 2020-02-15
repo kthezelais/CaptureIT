@@ -55,7 +55,7 @@ Cet outil est indispensable pour pouvoir tester le projet en local (cf. étape 3
 
 3. <b><i>Le serveur local-web-server</b></i>
 <pre>sudo npm install -g local-web-server</pre>
-Le local web seveur est un outil très pratique pour tester ce projet. En effet, Cordova permet d'utiliser les languages du web pour pouvoir développer une application mobile cross-plateform. Pour éviter d'avoir à téléverser l'application pendant à chaque modification, nous nous servons du local web serveur pour pouvoir la tester en amont sur un navigateur web. Pour tester l'application, faire comme suit depuis un terminal à la racine du projet :
+Le local web serveur est un outil très pratique pour tester ce projet. En effet, Cordova permet d'utiliser les languages du web pour pouvoir développer une application mobile cross-plateform. Pour éviter d'avoir à téléverser l'application à chaque modification, nous nous servons du local web serveur pour pouvoir la tester en amont sur un navigateur web. Pour tester l'application, faire comme suit depuis un terminal à la racine du projet :
 <pre>
 git checkout dev
 cd app/www/
@@ -68,17 +68,17 @@ Le serveur est maintenant actif. Rendez-vous sur le lien suivant avec votre navi
 Git Kreken propose une interface graphique très intuitive pour pouvoir gérer son dépôt git. Il permet également d'avoir une bonne visibilité sur la gestion des sources avec l'affichage de l'arborescence du projet en graphique.
 
 ## <b>Déployer l'application sur un Smartphone Android</b>
-Dans cette partie, nous allons vous montrer la marche à suivre pour pouvoir déployer l'application CaptureIT sur un Smartphone Android (déploiement Iphone pas encore disponible).
+Dans cette partie, nous allons vous montrer la marche à suivre pour pouvoir déployer l'application CaptureIT sur un Smartphone Android (déploiement IOS pas encore disponible).
 
 ### <b><i> Depuis une distribution Linux :</i></b>
 Pour cela, positionnez vous à la racine du projet et saisissez les commandes suivantes :
 
-1. Définir les plateforms (Android/IOS)
+1. <b><i>Définir les plateforms (Android/IOS)</b></i>
 <pre>cordova platform add android</pre>
 
-2. Tester l'état des dépendances / requirements du projet
+2. <b><i>Tester l'état des dépendances / requirements du projet</b></i>
 <pre>cordova requirements</pre>
-Cette commande doit vous envoyer le retour suivant :
+Cette commande doit vous retourner le message suivant :
 <pre>
 Requirements check results for android:
 Java JDK: installed 1.8.0
@@ -96,16 +96,16 @@ Gradle: installed /usr/share/gradle/bin/gradle
 
 * Pour gradle, l'installation d'Android Studio devrait également résoudre votre problème.
 
-3. Construire le projet
+3. <b><i>Construire le projet</b></i>
 <pre>cordova build android</pre>
 
-4. Branchez votre Smartphone Android et n'oublie pas d'autoriser le partage de fichier entre votre mobile et votre PC.
+4. <b><i>Branchez votre Smartphone Android et n'oubliez pas d'autoriser le partage de fichier entre votre mobile et votre PC.</b></i>
 
-5. Vérifier que votre mobile est bien détecté par votre PC :
+5. <b><i>Vérifiez que votre mobile est bien détecté par votre PC :</b></i>
 <pre>adb devices</pre>
-Si cela fonctionne, cette commande doit vous retourner un message avec une suite de chiffre. Si ce n'est pas le cas, vérifiez que votre Smartphone est connecté à votre PC et que vous avez bien autorisé votre ordinateur à accéder aux fichiers de votre Smartphone Android.
+Si cela fonctionne, cette commande doit vous retourner un message avec une suite de chiffre. Si ce n'est pas le cas, vérifiez que votre Smartphone est bien connecté à votre PC et que vous avez bien autorisé votre ordinateur à accéder aux fichiers de votre Smartphone Android.
 
-6. Déployer l'application sur votre mobile android
+6. <b><i>Déployez l'application sur votre Smartphone Android</b></i>
 <pre>cordova run android</pre>
 
 Et voilà, l'application est déployée !

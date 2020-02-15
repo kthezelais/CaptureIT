@@ -1,46 +1,50 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-    },
+const FOAF = $rdf.Namespace('http://xmlns.com/foaf/0.1/');
+const auth = solid.auth;
+const fc = new SolidFileClient(auth);
+const popupUri = '../popup.html';
+const x = 'https://kthezelais.solid.community/CaptureIT/';
+var userStoragePOD = "";
 
-    // deviceready Event Handler
-    //
-    // Bind any cordova events here. Common events are:
-    // 'pause', 'resume', etc.
-    onDeviceReady: function() {
-        this.receivedEvent('deviceready');
-    },
+// Fonction de téléchargement d'une image
+function downloadURI(uri, name) {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    delete link;
+}
 
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
+// Gestion de la connexion/déconnexion de l'utilisateur
+$('#login').click(() => solid.auth.popupLogin({ popupUri }));
+$('#logout').click(() => solid.auth.logout());
 
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+// Envoyer une image en local sur son POD
+$('#submit').click(() => {
+    var newFile = $('input[type=file]')[0].files[0];
+    fc.createFile(x + newFile.name, newFile, newFile.type);
+    alert('Le fichier ' + newFile.name + ' a été ajouté !');
+});
 
-        console.log('Received Event: ' + id);
+// Envoyer une requête de création d'un nouveau répertoire dans CaptureIT
+$('#submit-2').click(() => {
+    var newFolder = $('#new-folder').val();
+    fc.createFolder(x + newFolder);
+    alert('Le dossier ' + newFolder + ' a été créé !');
+});
+
+// Télécharge le fichier à l'adresse de l'élément file-to-download
+$('#download').click(() => {
+    downloadURI(userStoragePOD + $('#file-to-download').val(), $('#file-to-download').val());
+});
+
+// Mise à jour des éléments de la page en fonction du statut de la connexion
+solid.auth.trackSession(session => {
+    const loggedIn = !!session;
+    $('#login-view').toggle(!loggedIn);
+    $('#is-connected').toggle(loggedIn);
+    if (loggedIn) {
+        userStoragePOD = session.webId.slice(0, session.webId.length - 16) + "/CaptureIT/";
     }
-};
-
-app.initialize();
+});

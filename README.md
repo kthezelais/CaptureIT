@@ -29,8 +29,10 @@ Dans cette partie, nous allons vous présenter les différentes étapes à respe
 <pre>sudo apt-get install ant</pre>
 
 4. Installer la sdk android
-<pre>sudo snap install android-studio</pre>
+<pre>sudo snap install android-studio --classic</pre>
 Pour éviter tout problème lors de cette étape, nous recommandons d'installer l'IDE Android Studio qui permet de récupérer l'ensemble des outils de développement Android sans erreur. Cependant, il est possible de n'installer que la SDK d'android.
+
+Pour installer la SDK, il faut lancer l'IDE Android Studio au moins une fois pour finir l'installation.
 
 Il faut ensuite indiquer dans le <b>$PATH</b> où se trouve votre sdk :
 <pre>export PATH=<b>{chemin vers votre dossier Android}</b>/Android/Sdk/tools:<b>{chemin vers votre dossier Android}</b>/Android/Sdk/platform-tools:<b>{chemin vers votre dossier Android}</b>/Android/Sdk/tools/bin:$PATH</pre>
@@ -50,8 +52,18 @@ Dans cette partie, nous allons vous présenter l'environnement de développement
 <b>Visual Studio Code</b> ou <b>VScode</b> est un éditeur de texte très populaire et possède une communauté très active. Il est également composé d'un installateur de plugins qui ont été développés par sa communauté ce qui en fait un outil très pratique.
 
 2. <b><i>Nodejs</b></i>
-<pre>sudo apt-get install nodejs</pre>
-Cet outil est indispensable pour pouvoir tester le projet en local (cf. étape 3).
+<pre>
+wget https://nodejs.org/dist/v12.16.0/node-v12.16.0-linux-x64.tar.xz
+</pre>
+Cet outil est indispensable pour pouvoir tester le projet en local (cf. étape 3). Dans notre cas, nous aurons besoin d'une version supérieur à la 10.0.0. Si ce n'est pas le cas, l'étape 3 ne fonctionnera pas correctement. Une fois l'archive téléchargé via la commande précédente, décompressez là et ajoutez au PATH la localisation de nodejs de la manière suivante :
+<pre>
+export PATH=<b>{chemin vers l'archive décompressée}</b>/node-v12.16.0-linux-x64/bin:$PATH
+</pre>
+
+Vous pouvez également persister la commande dans le .basrc de cette manière :
+<pre>
+echo "export PATH=<b>{chemin vers l'archive décompressée}</b>/node-v12.16.0-linux-x64/bin:$PATH" >> ~/.bashrc
+</pre>
 
 3. <b><i>Le serveur local-web-server</b></i>
 <pre>sudo npm install -g local-web-server</pre>
@@ -63,7 +75,15 @@ ws
 </pre>
 Le serveur est maintenant actif. Rendez-vous sur le lien suivant avec votre navigateur web : http://127.0.0.1:8000
 
-4. <b><i>Git Kraken</b></i>
+4. <b><i>Java 8</b></i>
+<pre>sudo apt-get install openjdk-8-jdk</pre>
+Dans le cadre de ce projet, nous avons besoin de la version 8 de Java pour faire fonctionner la commande sdkmanager d'android. Si vous avez une version plus récente et que vous souhaiter passer vers la version 8, procéder de la manière suivante :
+<pre>
+sudo update-alternatives --config java
+</pre>
+Saisir la ligne correspondant à la version 8 de Java. Effectuer la même manipulatiob pour revenir à votre version normal.
+
+5. <b><i>Git Kraken</b></i>
 <pre>sudo snap install gitkraken</pre>
 Git Kreken propose une interface graphique très intuitive pour pouvoir gérer son dépôt git. Il permet également d'avoir une bonne visibilité sur la gestion des sources avec l'affichage de l'arborescence du projet en graphique.
 
@@ -87,7 +107,7 @@ Android target: installed android-29,android-28,android-27
 Gradle: installed /usr/share/gradle/bin/gradle
 </pre>
 
-* Si vous aver une erreur au niveau de la JDK java, veuillez installer Java 8 qui est la version que nous avons utilisé dans le cadre de ce projet.
+* Si vous aver une erreur au niveau de la JDK java, veuillez installer Java 8 qui est la version que nous avons utilisé dans le cadre de ce projet (voir les partie précédente sur l'installation de Java 8).
 
 * Pour la partie SDK, vous ne devriez pas avoir de problème si vous êtes passés par l'installation d'Android Studio. Dans le cas contraire, nous vous conseillons de l'installer pour éviter tout problème.
 

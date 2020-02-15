@@ -80,21 +80,35 @@ Pour cela, positionnez vous à la racine du projet et saisissez les commandes su
 <pre>cordova requirements</pre>
 Cette commande doit vous envoyer le retour suivant :
 <pre>
+Requirements check results for android:
+Java JDK: installed 1.8.0
+Android SDK: installed true
+Android target: installed android-29,android-28,android-27
+Gradle: installed /usr/share/gradle/bin/gradle
+</pre>
 
-<pre>
+* Si vous aver une erreur au niveau de la JDK java, veuillez installer Java 8 qui est la version que nous avons utilisé dans le cadre de ce projet.
 
-2. Construire le projet
+* Pour la partie SDK, vous ne devriez pas avoir de problème si vous êtes passés par l'installation d'Android Studio. Dans le cas contraire, nous vous conseillons de l'installer pour éviter tout problème.
+
+* Pour la partie target, sois vous n'avez pas défini de plarefome android, dans ce cas, saisissez la commande à l'étape 1, sois vous n'êtes pas sur la bonne version de la plateform. Dans ce cas, saisissez la commande suivante :
+<pre>sdkmanager "platforms;android-27"</pre>
+
+* Pour gradle, l'installation d'Android Studio devrait également résoudre votre problème.
+
+3. Construire le projet
 <pre>cordova build android</pre>
 
-3.
+4. Branchez votre Smartphone Android et n'oublie pas d'autoriser le partage de fichier entre votre mobile et votre PC.
 
-4. Déployer l'application sur mobile
-cordova run android
+5. Vérifier que votre mobile est bien détecté par votre PC :
+<pre>adb devices</pre>
+Si cela fonctionne, cette commande doit vous retourner un message avec une suite de chiffre. Si ce n'est pas le cas, vérifiez que votre Smartphone est connecté à votre PC et que vous avez bien autorisé votre ordinateur à accéder aux fichiers de votre Smartphone Android.
 
+6. Déployer l'application sur votre mobile android
+<pre>cordova run android</pre>
 
-
-6. Lister les périphérique / devices détecté par adb (émulateur  / déployeur)
-adb devices
+Et voilà, l'application est déployée !
 
 ## <b>Licence</b>
 

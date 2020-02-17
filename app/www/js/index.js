@@ -1,7 +1,7 @@
 const FOAF = $rdf.Namespace('http://xmlns.com/foaf/0.1/');
 const auth = solid.auth;
 const fc = new SolidFileClient(auth);
-const popupUri = '../popup.html';
+const popupUri = 'popup.html';
 const x = 'https://kthezelais.solid.community/CaptureIT/';
 var userStoragePOD = "";
 
@@ -17,8 +17,8 @@ function downloadURI(uri, name) {
 }
 
 // Gestion de la connexion/déconnexion de l'utilisateur
-$('#login').click(() => solid.auth.popupLogin({ popupUri }));
-$('#logout').click(() => solid.auth.logout());
+//$('#login').click(() => solid.auth.popupLogin({ popupUri }));
+//$('#logout').click(() => solid.auth.logout());
 
 // Envoyer une image en local sur son POD
 $('#submit').click(() => {
@@ -40,11 +40,11 @@ $('#download').click(() => {
 });
 
 // Mise à jour des éléments de la page en fonction du statut de la connexion
-solid.auth.trackSession(session => {
+/*solid.auth.trackSession(session => {
     const loggedIn = !!session;
     $('#login-view').toggle(!loggedIn);
     $('#is-connected').toggle(loggedIn);
     if (loggedIn) {
         userStoragePOD = session.webId.slice(0, session.webId.length - 16) + "/CaptureIT/";
     }
-});
+});*/

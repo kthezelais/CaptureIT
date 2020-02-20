@@ -41,6 +41,41 @@ Pour éviter d'avoir à saisir cette commande à chaque fois, nous vous invitons
 <pre>echo "export PATH=<b>{chemin vers votre dossier Android}</b>/Android/Sdk/tools:<b>{chemin vers votre dossier Android}</b>/Android/Sdk/platform-tools:<b>{chemin vers votre dossier Android}</b>/Android/Sdk/tools/bin:$PATH" >> ~/.bashrc"</pre>
 Fermez puis ré-ouvrez votre terminale pour valider l'opération.
 
+### <b><i> Sous Windows 10 :</i></b>
+
+Pour installer Node.js
+
+    * Allez sur le site nodejs.org
+    * Cliquez sur "Install" (Cela installe automatiquement la version compatible avec votre système d'exploitation)
+    * Ouvrez le fichier.exe téléchargé et cliquer plusieurs fois sur Next après install
+    * Une fois l'installation finie, ouvrez le terminal pour installer cordova
+
+Pour installer Cordova
+
+    * Tapez dans le terminal la commande: npm install -g cordova et puis Entrée et laissez tourner
+    * Pour vérifier la version installée, tapez: cordova --version
+
+Pour installer le JDK:
+
+    * Allez sur le site https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+    * Dans la liste qui s'affiche prenez la version qui correspond à votre système d'exploitation (dans mon cas c'est: Windows x64)
+    * Double-cliquez sur le fichier téléchargé, après "next" jusqu'à la fin du téléchargement
+    *Allez dans le dossier de téléchargement jusqu'au fichier bin et copier le chemin (Java\jdk..\bin par exemple) et l'ajouter à la variable PATH de votre système
+
+Pour installer le SDK Android:
+
+    * Le SDK tools package n'étant pas complet à l'adresse https://developer.android.com/studio, le plus simple est de télécharger android studio directement, car il intègre le SDK Manager.
+    
+    * Copiez les 2 chemins de "tools" et "platform-tools" (dans le dossier sdk) et rajoutez les à la variable PATH de votre système.
+
+Pour installer Apache Ant:
+
+    * Allez sur le site https://ant.apache.org/
+    * Cliquez sur https://ant.apache.org/bindownload.cgi
+    * Récupérez après le fichier .zip
+    * Dé-zipper le fichier téléchargé, allez dans le dossier "bin" et ajouter son chemin au PATH du système
+
+
 ## <b>Installation de l'environnement de développement</b>
 
 Dans cette partie, nous allons vous présenter l'environnement de développement que nous utilisons pour développer dans le cadre de ce projet.
@@ -87,8 +122,24 @@ Saisir la ligne correspondant à la version 8 de Java. Effectuer la même manipu
 <pre>sudo snap install gitkraken</pre>
 Git Kreken propose une interface graphique très intuitive pour pouvoir gérer son dépôt git. Il permet également d'avoir une bonne visibilité sur la gestion des sources avec l'affichage de l'arborescence du projet en graphique.
 
+### <b><i> Sous Windows 10 :</i></b>
+1. <b><i>Visual Studio Code</b></i>
+<pre>sudo snap install code --classic</pre>
+<b>Visual Studio Code</b> ou <b>VScode</b> est un éditeur de texte très populaire et possède une communauté très active. Il est également composé d'un installateur de plugins qui ont été développés par sa communauté ce qui en fait un outil très pratique.
+
+2. <b><i>Git Kraken</b></i>
+<pre>sudo snap install gitkraken</pre>
+Git Kreken propose une interface graphique très intuitive pour pouvoir gérer son dépôt git. Il permet également d'avoir une bonne visibilité sur la gestion des sources avec l'affichage de l'arborescence du projet en graphique.
+
+
+
+
+
 ## <b>Déployer l'application sur un Smartphone Android</b>
 Dans cette partie, nous allons vous montrer la marche à suivre pour pouvoir déployer l'application CaptureIT sur un Smartphone Android (déploiement IOS pas encore disponible).
+
+### <b><i> Sous Windows 10 :</i></b>
+Voir pour Linux, les commande cordova sont identiques.
 
 ### <b><i> Depuis une distribution Linux :</i></b>
 Pour cela, positionnez vous à la racine du projet et saisissez les commandes suivantes :

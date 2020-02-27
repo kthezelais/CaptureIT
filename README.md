@@ -50,6 +50,12 @@ Ajouter dans le fichier <b>/etc/apache2/apache2.conf</b> :
 	AllowOverride None
 	Require all granted
 &#60;/Directory>
+
+&#60;Directory <span style="color: green;">{# Chemin vers CaptureIT #}</span>/CaptureIT/traxlrs/public>
+	Options Indexes FollowSymLinks
+	AllowOverride None
+	Require all granted
+&#60;/Directory>
 </pre>
 </code>
 

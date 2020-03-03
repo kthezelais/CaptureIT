@@ -95,3 +95,32 @@ Saisir ensuite la commande suivante dans le dossier <b>traxlrs/</b> à la racine
 php artisan migrate
 </pre>
 </code>
+
+## <b>TRAX-LRS : exécuter le serveur en local avec Laravel</b>
+
+Pour exécuter le serveur en local, se placer dans le dossier trax-lrs et saisir la commande suivante :
+<code>
+<pre>
+php artisan serve
+</pre>
+</code>
+
+Aller ensuite à l'adresse suivante : http://127.0.0.1:8000
+
+TRAX-LRS est composé d'une interface web (GUI) permettant de gérer les accès à l'API. L'URL précédente permet d'accéder à cette page qui nécessite des droits d'accès particulier. Pour pouvoir générer un compte permettant de s'y connecter, saisit la commande suivante :
+<code>
+<pre>
+php artisan user:create-admin <span style="color: green;">{# Saisir une adresse email valide #}</span>
+</pre>
+</code>
+
+Entrez ensuite l'email que vous avez saisi, et le mot de passé généré par le serveur. Pour pouvoir visualiser ces informations, saisir la commande suivante :
+<code>
+<pre>
+php artisan user:list
+</pre>
+</code>
+
+Cette première interface vous permet donc de gérer les accès à votre API. Pour utiliser l'API TRAX-LRS (ce qui nous interesse ici), testez tout d'abord que celle-ci fonctionne en vous rendant sur cette adresse : http://127.0.0.1:8000/trax/ws/xapi/about
+
+A partir d'ici, vous n'avez plus qu'à transmettre des requêtes en respect avec le standard xAPI pour pouvoir communiquer avec votre serveur. Pour plus d'information, rendez-vous sur ce dépôt officiel : https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Communication.md#partthree 

@@ -13,7 +13,6 @@
 
         <input id="usr" type="text" placeholder="Username" />
         <input id="passwd" type="password" placeholder="Password" />
-        <input id="statement-id" type="text" placeholder="Statement ID to get" />
         <input id="submit-button" type="button" value="Envoyer" />
 
     </div>
@@ -27,8 +26,7 @@
     <script>
         $('#submit-button').on('click', function() {
             endPoint = "http://127.0.0.1:8000";
-            result = getStatementById(endPoint, $("#statement-id").val(), $("#usr").val(), $("#passwd").val()); // to get the statement id to request to the LRS
-            //result = getAboutLRS(endPoint); // to test if the LRS works
+            result = getStatements(endPoint, $("#usr").val(), $("#passwd").val());
 
             if (result.status == 200) {
                 $("#trax-lrs-reponse").text(JSON.stringify(result.responseJSON));

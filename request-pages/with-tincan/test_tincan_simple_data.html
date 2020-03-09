@@ -1,0 +1,69 @@
+<html>
+
+<head>
+    <title>Simple TinCanJS Example</title>
+    <script src="tincan.js"></script>
+    <script>
+        var lrs;
+
+        try {
+            lrs = new TinCan.LRS({
+                endpoint: "http://127.0.0.1:8000/trax/ws/xapi",
+                username: "kthezelais",
+                password: "tprzo.40",
+                allowFail: false
+            });
+        } catch (ex) {
+            console.log("Failed to setup LRS object: ", ex);
+        }
+
+        var statement = new TinCan.Statement({
+            actor: {
+                objectType: "Person",
+                name: [
+                    "Joe Schmoe",
+                    "Joseph Schmoseph"
+                ],
+                mbox: [
+                    "mailto:joe@example.com"
+                ],
+                openid: [
+                    "http://openid.com/joe-schmoe"
+                ]
+            },
+            verb: {
+                id: "http://adlnet.gov/expapi/verbs/experienced"
+            },
+            target: {
+                id: "http://rusticisoftware.github.com/TinCanJS"
+            }
+        });
+
+        lrs.saveStatement(
+            statement, {
+                callback: function(err, xhr) {
+                    if (err !== null) {
+                        if (xhr !== null) {
+                            console.log("Failed to save statement: " + xhr.responseText + " (" + xhr.status + ")");
+                            // TODO: do something with error, didn't save statement
+                            return;
+                        }
+
+                        console.log("Failed to save statement: " + err);
+                        // TODO: do something with error, didn't save statement
+                        return;
+                    }
+
+                    console.log("Statement saved");
+                    // TOOO: do something with success (possibly ignore)
+                }
+            }
+        );
+    </script>
+</head>
+
+<body>
+    //You don’t actually need a body for this tutorial.
+</body>
+
+</html>

@@ -3,3 +3,5 @@ app/platforms
 app/plugins
 app/node_modules
 traxlrs
+node_modules
+.gitignore

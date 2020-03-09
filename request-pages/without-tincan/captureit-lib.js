@@ -1,5 +1,6 @@
 /*
  *  Get a statement by its ID, and the LRS endPoint.
+ *  parameters user and password are required to (auth created in LRS DB.
  *
  *  return : object of the $.ajax() request.
  *      SUCCESS : <result_var>.status == 200
@@ -7,12 +8,13 @@
  * 
  *  Check with status attribut to see if the request works or not.
  */
+function getStatementById(endPoint, id, user, password) {
+    auth = btoa(user + ':' + password);
 
-function getStatementById(endPoint, id) {
     return $.ajax({
         beforeSend: function(req) {
             req.setRequestHeader("Content-Type", "application/json");
-            req.setRequestHeader("Authorization", "Basic a3RoZXplbGFpczp0cHJ6by40MA==");
+            req.setRequestHeader("Authorization", "Basic " + auth);
             req.setRequestHeader("X-Experience-API-Version", "1.0.0");
             console.log("Headers sucessfully initialized");
         },

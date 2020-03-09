@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get a statement by Id</title>
+</head>
+
+<body>
+
+    <div id="my-form">
+
+        <input id="statement-id" type="text" placeholder="Statement ID to get" />
+        <input id="submit-button" type="submit" value="Envoyer" />
+
+    </div>
+
+    <p id="trax-lrs-reponse"></p>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="captureit-lib.js"></script>
+
+    <script>
+        $('#submit-button').on('click', function() {
+            endPoint = "http://127.0.0.1:8000";
+            result = getStatementById(endPoint, $("#statement-id").val()); // to get the statement id to request to the LRS
+            //result = getAboutLRS(endPoint); // to test if the LRS works
+
+            if (result.status == 200) {
+                $("#trax-lrs-reponse").text(JSON.stringify(result.responseJSON));
+
+            } else {
+                $("#trax-lrs-reponse").text("Une erreur s'est produite");
+
+            }
+        });
+    </script>
+
+</body>
+
+</html>

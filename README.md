@@ -123,4 +123,17 @@ php artisan user:list
 
 Cette première interface vous permet donc de gérer les accès à votre API. Pour utiliser l'API TRAX-LRS (ce qui nous interesse ici), testez tout d'abord que celle-ci fonctionne en vous rendant sur cette adresse : http://127.0.0.1:8000/trax/ws/xapi/about
 
-A partir d'ici, vous n'avez plus qu'à transmettre des requêtes en respect avec le standard xAPI pour pouvoir communiquer avec votre serveur. Pour plus d'information, rendez-vous sur ce dépôt officiel : https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Communication.md#partthree 
+A partir d'ici, vous n'avez plus qu'à transmettre des requêtes en respect avec le standard xAPI pour pouvoir communiquer avec votre serveur. Pour plus d'information, rendez-vous sur ce dépôt officiel : https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Communication.md#partthree
+
+## <b>API CaptureIT : Stockage d'image et redirection vers TRAX-LRS</b>
+
+Dans cette partie, nous allons expliquer comment déployer l'API CatpureIT, et la connecter à votre serveur TRAX-LRS.
+
+
+Tout d'abord, dans le dossier <b>api/</b>, créez un dossier <b>img/</b>, et données lui tous les droits avec la commande suivante :
+
+<code>
+<pre>
+sudo chmod 777 img
+</pre>
+</code>

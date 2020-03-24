@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaptureIT</title>
+</head>
+
+<body>
+    <script>
+        if (localStorage.getItem('connected') === null || localStorage.getItem('connected') == false) {
+            document.location.href = "connection.html";
+        }
+    </script>
+
+    <section>
+
+        <article>
+
+            <input id="button-disconnect" type="button" value="Déconnexion"><br>
+
+        </article>
+
+        <article>
+            <p id="result"></p>
+        </article>
+
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        var login = localStorage.getItem('login');
+        var backend = localStorage.getItem('backend');
+
+        $("#button-disconnect").on('click', function(event) {
+            localStorage.clear();
+            document.location.href = "connection.html";
+
+        });
+    </script>
+
+</body>
+
+</html>

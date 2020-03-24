@@ -8,6 +8,11 @@
 </head>
 
 <body>
+    <script>
+        if (localStorage.getItem('connected') !== null && localStorage.getItem('connected') != false) {
+            document.location.href = "index-tmp.html";
+        }
+    </script>
 
     <section>
 
@@ -39,6 +44,7 @@
             var login = $('#login').val();
             var password = $('#password').val();
             var url = $('#server').val() + "/CaptureIT/backend/login.php";
+            var backend = $('#server').val() + "/CaptureIT/backend/";
 
             auth = btoa(login + ':' + password);
 
@@ -47,8 +53,6 @@
             var data = '{' +
                 '"content" : "' + auth + '"' +
                 '}';
-
-            alert(data);
 
             var result = $.ajax({
                 async: false,
@@ -68,6 +72,14 @@
             });
 
             $("#result").text(JSON.stringify(result.responseText));
+
+            if (result.status == 200) {
+                localStorage.setItem('login', login);
+                localStorage.setItem('backend', backend);
+                localStorage.setItem('connected', true);
+                document.location.href = "index-tmp.html";
+            }
+
         });
     </script>
 

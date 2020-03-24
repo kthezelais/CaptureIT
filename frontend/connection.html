@@ -20,11 +20,11 @@
 
             <form id="form-login" action="" method="post">
 
-                <input type="text" name="login" id="login" placeholder="Pseudo"><br>
+                <input type="text" name="login" id="login" placeholder="Pseudo" required><br>
 
-                <input type="password" name="password" id="password" placeholder="Mot de passe"><br>
+                <input type="password" name="password" id="password" placeholder="Mot de passe" required><br>
 
-                <input type="url" name="server" id="server" placeholder="Adresse de votre serveur"><br>
+                <input type="url" name="server" id="server" placeholder="Adresse de votre serveur" required><br>
 
                 <input type="submit" value="Connexion"><br>
 
@@ -41,6 +41,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         $("#form-login").on('submit', function(event) {
+            var msg = "";
             var login = $('#login').val();
             var password = $('#password').val();
             var url = $('#server').val() + "/CaptureIT/backend/login.php";
@@ -71,13 +72,22 @@
 
             });
 
-            $("#result").text(JSON.stringify(result.responseText));
+            if (result.status == 404) {
+                msg = "Impossible d'atteindre l'URL demandée.";
+            } else if (result.status == 0) {
+                msg = "Erreur : syntaxe de l'URL erronée";
+            } else {
+                msg = JSON.stringify(result.responseText);
+                msg = msg.replace("\"", "").replace("\"", "");
+            }
+
+            $("#result").text(msg);
 
             if (result.status == 200) {
                 localStorage.setItem('login', login);
                 localStorage.setItem('backend', backend);
                 localStorage.setItem('connected', true);
-                document.location.href = "index-tmp.html";
+                document.location.href = "index.html";
             }
 
         });

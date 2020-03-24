@@ -29,12 +29,11 @@ if($http_response_header[0] == "HTTP/1.0 401 Unauthorized") {
   header("HTTP/1.0 401 Unauthorized");
   echo "Login ou mot de passe incorrect.";
 } else if($http_response_header[0] == "HTTP/1.0 400 Bad Request") {
-  //session_start();
   header("HTTP/1.0 200 OK");
-  //$_SESSION['content'] = $data->content;
   echo "Connexion réussi !";
 } else {
   header("HTTP/1.0 500 Internal Server Error");
-  echo "Une erreur s'est produite. Vérifier que votre serveur TRAX-LRS ainsi que votre backend sont bien congigurés.";
+  echo "Serveur TRAX-LRS injoignable. Vérifiez que votre serveur TRAX-LRS ainsi que votre backend sont bien configurés.";
 }
+
 ?>

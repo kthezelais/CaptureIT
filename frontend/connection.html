@@ -5,12 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CaptureIT : Connexion</title>
+    <script type="text/javascript" src="data.js"></script>
+    <script src="asset/js/lib/jquery.min.js"></script>
 </head>
 
 <body>
     <script>
-        if (localStorage.getItem('connected') !== null && localStorage.getItem('connected') != false) {
-            document.location.href = "index-tmp.html";
+        var url = data.backend + "status.php";
+        var result = $.ajax({
+            async: false,
+            url: url,
+            type: "GET",
+
+            success: function(resultat, statut, erreur) {
+                console.log("RESULTAT : \n" + JSON.stringify(resultat) + "\n\nSTATUT : " + statut + "\n\nERREUR : " + JSON.stringify(erreur));
+            },
+
+            error: function(resultat, statut, erreur) {
+                console.log("RESULTAT : \n" + JSON.stringify(resultat) + "\n\nSTATUT : " + statut + "\n\nERREUR : " + JSON.stringify(erreur));
+            }
+
+        });
+
+        if (result.status != 440) {
+            document.location.href = "index.html";
         }
     </script>
 
@@ -38,7 +56,6 @@
 
     </section>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="asset/js/connection.js"></script>
 
 </body>

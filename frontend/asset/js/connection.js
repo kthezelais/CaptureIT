@@ -3,7 +3,6 @@ $("#form-login").on('submit', function(event) {
     var login = $('#login').val();
     var password = $('#password').val();
     var url = $('#server').val() + "/CaptureIT/backend/login.php";
-    var backend = $('#server').val() + "/CaptureIT/backend/";
 
     auth = btoa(login + ':' + password);
 
@@ -42,9 +41,6 @@ $("#form-login").on('submit', function(event) {
     $("#result").text(msg);
 
     if (result.status == 200) {
-        localStorage.setItem('login', login);
-        localStorage.setItem('backend', backend);
-        localStorage.setItem('connected', true);
         document.location.href = "index.html";
     }
 

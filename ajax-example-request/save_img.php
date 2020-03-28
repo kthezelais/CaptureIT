@@ -31,9 +31,11 @@
                 $array = array("path" => "img/" . $file_name_full);
                 echo json_encode($array);
             } else {
+                header("HTTP/1.0 500 Internal Server Error");
                 echo "Une erreur est survenue lors de l'envoi du fichier";
             }
         } else {
+            header("HTTP/1.0 500 Internal Server Error");
             echo "Seuls les images sont autorisées.";
         }
     }

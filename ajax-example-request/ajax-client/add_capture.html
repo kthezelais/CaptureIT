@@ -68,7 +68,7 @@
             var email = $("#email").val();
             var title = $('#title').val();
             var description = $('#description').val();
-            var formURL = "http://localhost/dev/CaptureIT/api/save_img.php"
+            var formURL = "http://localhost/dev/CaptureIT/ajax-example-request/save_img.php"
             var fileExtension = ['jpeg', 'jpg', 'png', 'gif'];
 
             var auth = btoa(user + ':' + password);
@@ -93,13 +93,16 @@
 
                     success: function(resultat, statut, erreur) {
                         console.log("RESULTAT : \n" + JSON.stringify(resultat) + "\n\nSTATUT : " + statut + "\n\nERREUR : " + JSON.stringify(erreur));
+                    },
+
+                    error: function(resultat, statut, erreur) {
+                        console.log("RESULTAT : \n" + JSON.stringify(resultat) + "\n\nSTATUT : " + statut + "\n\nERREUR : " + JSON.stringify(erreur));
                     }
                 });
 
-                hash = sha256(fileUrl.responseJSON.path);
-
                 if (fileUrl.status == 200) {
                     $("#trax-lrs-reponse").text(JSON.stringify(fileUrl.responseJSON));
+                    hash = sha256(fileUrl.responseJSON.path);
 
                 } else {
                     $("#trax-lrs-reponse").text("Une erreur s'est produite :\n" + JSON.stringify(fileUrl));
@@ -137,7 +140,7 @@
                 '"contentType": "image/' + extension + '",' +
                 '"length": ' + fileSize + ',' +
                 '"sha2": "' + hash + '",' +
-                '"fileUrl": "' + fileUrl.responseJSON.path + '"' +
+                '"fileUrl": "http://' + fileUrl.responseJSON.path + '"' +
                 '}]' +
                 '}';
 

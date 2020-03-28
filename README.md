@@ -1,186 +1,331 @@
-# CaptureIT
+CaptureIT
+=========
 
 L’application CaptureIT est une application mobile open source qui permet de capturer, de collectionner et d’exploiter ses expériences d’apprentissage. Par expérience, nous désignons toute situation dans laquelle une personne a découvert, appris, compris ou démontré une notion, un savoir-faire, un savoir-être...
 
-## <b>Bien débuter</b>
+CaptureIT est développé sous Ubuntu 18.04 LTS.
 
-Ce documents a pour objectif de présenter comment déployer une copie local de ce projet et son environnement sur une machine.
-
-## <b>Prérequis</b>
+# Prérequis
 
 Ce projet a été développé sous environnement Linux (distribution Ubuntu 18.04 LTS). Il nécessite les ressources suivantes :
 
-* Un POD Solid ( <a href="https://solid.inrupt.com/get-a-solid-pod">Lien pour créer un POD en ligne </a>).
 * Un éditeur de code compatible JavaScript (<a href="https://code.visualstudio.com/download"> VSCode pour notre part </a>).
 
-## <b>Installations Préliminaires</b>
 
-### <b><i> Sous distribution Linux :</i></b>
+# Installation serveur LAMP
 
-Dans cette partie, nous allons vous présenter les différentes étapes à respecter pour déployer ce projet sur votre machine locale sous environnement Linux. Les testes de déploiement ont été effectués avec la version 18.04 LTS de la distribution Linux (recommandé).
+L'application CaptureIT est est disponible sur github.
 
-1. Installer npm
-<pre>sudo apt-get install npm</pre>
+Sommaire : Installer GIT
+* Installer GIT
+* Cloner le dépôt
 
-2. Installer cordova
-<pre>sudo npm install -g cordova</pre>
-
-3. Installer apache ant
-<pre>sudo apt-get install ant</pre>
-
-4. Installer la sdk android
-<pre>sudo snap install android-studio --classic</pre>
-Pour éviter tout problème lors de cette étape, nous recommandons d'installer l'IDE Android Studio qui permet de récupérer l'ensemble des outils de développement Android sans erreur. Cependant, il est possible de n'installer que la SDK d'android.
-
-Pour installer la SDK, il faut lancer l'IDE Android Studio au moins une fois pour finir l'installation.
-
-Il faut ensuite indiquer dans le <b>$PATH</b> où se trouve votre sdk :
-<pre>export PATH=<b>{chemin vers votre dossier Android}</b>/Android/Sdk/tools:<b>{chemin vers votre dossier Android}</b>/Android/Sdk/platform-tools:<b>{chemin vers votre dossier Android}</b>/Android/Sdk/tools/bin:$PATH</pre>
-<b>{chemin vers votre dossier Android}</b> doit être réplacé par le chemin absolu ou relatif de l'endroit où se trouve votre répertoire Android.
-Pour éviter d'avoir à saisir cette commande à chaque fois, nous vous invitons à ajouter cette commande dans votre fichier .bashrc :
-<pre>echo "export PATH=<b>{chemin vers votre dossier Android}</b>/Android/Sdk/tools:<b>{chemin vers votre dossier Android}</b>/Android/Sdk/platform-tools:<b>{chemin vers votre dossier Android}</b>/Android/Sdk/tools/bin:$PATH" >> ~/.bashrc"</pre>
-Fermez puis ré-ouvrez votre terminale pour valider l'opération.
-
-### <b><i> Sous Windows 10 :</i></b>
-
-Pour installer Node.js
-
-    * Allez sur le site nodejs.org
-    * Cliquez sur "Install" (Cela installe automatiquement la version compatible avec votre système d'exploitation)
-    * Ouvrez le fichier.exe téléchargé et cliquer plusieurs fois sur Next après install
-    * Une fois l'installation finie, ouvrez le terminal pour installer cordova
-
-Pour installer Cordova
-
-    * Tapez dans le terminal la commande: npm install -g cordova et puis Entrée et laissez tourner
-    * Pour vérifier la version installée, tapez: cordova --version
-
-Pour installer le JDK:
-
-    * Allez sur le site https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
-    * Dans la liste qui s'affiche prenez la version qui correspond à votre système d'exploitation (dans mon cas c'est: Windows x64)
-    * Double-cliquez sur le fichier téléchargé, après "next" jusqu'à la fin du téléchargement
-    *Allez dans le dossier de téléchargement jusqu'au fichier bin et copier le chemin (Java\jdk..\bin par exemple) et l'ajouter à la variable PATH de votre système
-
-Pour installer le SDK Android:
-
-    * Le SDK tools package n'étant pas complet à l'adresse https://developer.android.com/studio, le plus simple est de télécharger android studio directement, car il intègre le SDK Manager.
-    
-    * Copiez les 2 chemins de "tools" et "platform-tools" (dans le dossier sdk) et rajoutez les à la variable PATH de votre système.
-
-Pour installer Apache Ant:
-
-    * Allez sur le site https://ant.apache.org/
-    * Cliquez sur https://ant.apache.org/bindownload.cgi
-    * Récupérez après le fichier .zip
-    * Dé-zipper le fichier téléchargé, allez dans le dossier "bin" et ajouter son chemin au PATH du système
-
-
-## <b>Installation de l'environnement de développement</b>
-
-Dans cette partie, nous allons vous présenter l'environnement de développement que nous utilisons pour développer dans le cadre de ce projet.
-
-### <b><i> Sous distribution Linux :</i></b>
-
-1. <b><i>Visual Studio Code</b></i>
-<pre>sudo snap install code --classic</pre>
-<b>Visual Studio Code</b> ou <b>VScode</b> est un éditeur de texte très populaire et possède une communauté très active. Il est également composé d'un installateur de plugins qui ont été développés par sa communauté ce qui en fait un outil très pratique.
-
-2. <b><i>Nodejs</b></i>
+1. Installer GIT
+<code>
 <pre>
-wget https://nodejs.org/dist/v12.16.0/node-v12.16.0-linux-x64.tar.xz
+sudo apt-get install git
 </pre>
-Cet outil est indispensable pour pouvoir tester le projet en local (cf. étape 3). Dans notre cas, nous aurons besoin d'une version supérieur à la 10.0.0. Si ce n'est pas le cas, l'étape 3 ne fonctionnera pas correctement. Une fois l'archive téléchargé via la commande précédente, décompressez là et ajoutez au PATH la localisation de nodejs de la manière suivante :
+</code>
+
+2. Cloner le dépôt sur GitHub
+<code>
 <pre>
-export PATH=<b>{chemin vers l'archive décompressée}</b>/node-v12.16.0-linux-x64/bin:$PATH
+git clone https://github.com/kthezelais/CaptureIT.git
 </pre>
+</code>
 
-Vous pouvez également persister la commande dans le .basrc de cette manière :
+# Installation serveur LAMP
+
+Dans cette partie, nous nous référons à la documentation officiel pour installer un serveur LAMP, et avec les divers problèmes que nous avons pu rencontrer pendant la phase d'installation. Si vous rencontrez des problèmes qui sortent du cadre de ce projet, veuillez vous référer à la documentation officielle.
+
+Sommaire :
+* MySQL
+* APACHE 2
+
+Pour installer l'ensemble des dépendance du serveur LAMP, saisir la commande suivante dans un terminal :
+<code>
 <pre>
-echo "export PATH=<b>{chemin vers l'archive décompressée}</b>/node-v12.16.0-linux-x64/bin:$PATH" >> ~/.bashrc
+sudo apt install apache2 php libapache2-mod-php mysql-server php-mysql
 </pre>
+</code>
 
-3. <b><i>Le serveur local-web-server</b></i>
-<pre>sudo npm install -g local-web-server</pre>
-Le local web serveur est un outil très pratique pour tester ce projet. En effet, Cordova permet d'utiliser les languages du web pour pouvoir développer une application mobile cross-plateform. Pour éviter d'avoir à téléverser l'application à chaque modification, nous nous servons du local web serveur pour pouvoir la tester en amont sur un navigateur web. Pour tester l'application, faire comme suit depuis un terminal à la racine du projet :
+Il vous sera demandé plusieurs information de pré-configuration pour votre BDD MySQL. Suivez les étapes une à une jusqu'à arriver à la fin de l'installation.
+Sélectionnez la configuration avec un serveur Apache2.
+
+## <b>MySQL : Installation & Configuration</b>
+
+Ici, nous allons configurer votre BDD MySQL en utilisant exclusivement l'utilisateur root. En production, il est peu recommandé d'utiliser le super utilisateur. A terme, nous créerons un utilisateur exclusif au service CaptureIT avec seulement les droits nécessaires au bon fonctionnement du service.
+
+Sommaire :
+* Se connecter à la BDD
+* Utiliser la BDD MySQL
+* Définir un mot de passe et des droits à l'utilisateur root
+* Installer phpMyAdmin
+* Configuration phpMyAdmin
+
+
+1. Se connecter à la BDD
+
+<code>
 <pre>
-git checkout dev
-cd app/www/
-ws
+mysql -u root
 </pre>
-Le serveur est maintenant actif. Rendez-vous sur le lien suivant avec votre navigateur web : http://127.0.0.1:8000
+</code>
 
-4. <b><i>Java 8</b></i>
-<pre>sudo apt-get install openjdk-8-jdk</pre>
-Dans le cadre de ce projet, nous avons besoin de la version 8 de Java pour faire fonctionner la commande sdkmanager d'android. Si vous avez une version plus récente et que vous souhaiter passer vers la version 8, procéder de la manière suivante :
+2. Utiliser la BDD MySQL
+
+<code>
 <pre>
-sudo update-alternatives --config java
+use mysql;
 </pre>
-Saisir la ligne correspondant à la version 8 de Java. Effectuer la même manipulatiob pour revenir à votre version normal.
+</code>
 
-5. <b><i>Git Kraken</b></i>
-<pre>sudo snap install gitkraken</pre>
-Git Kreken propose une interface graphique très intuitive pour pouvoir gérer son dépôt git. Il permet également d'avoir une bonne visibilité sur la gestion des sources avec l'affichage de l'arborescence du projet en graphique.
+3. Définir un mot de passe et des droits à l'utilisateur root
 
-### <b><i> Sous Windows 10 :</i></b>
-1. <b><i>Visual Studio Code</b></i>
-<pre>sudo snap install code --classic</pre>
-<b>Visual Studio Code</b> ou <b>VScode</b> est un éditeur de texte très populaire et possède une communauté très active. Il est également composé d'un installateur de plugins qui ont été développés par sa communauté ce qui en fait un outil très pratique.
-
-2. <b><i>Git Kraken</b></i>
-<pre>sudo snap install gitkraken</pre>
-Git Kreken propose une interface graphique très intuitive pour pouvoir gérer son dépôt git. Il permet également d'avoir une bonne visibilité sur la gestion des sources avec l'affichage de l'arborescence du projet en graphique.
-
-
-
-
-
-## <b>Déployer l'application sur un Smartphone Android</b>
-Dans cette partie, nous allons vous montrer la marche à suivre pour pouvoir déployer l'application CaptureIT sur un Smartphone Android (déploiement IOS pas encore disponible).
-
-### <b><i> Sous Windows 10 :</i></b>
-Voir pour Linux, les commande cordova sont identiques.
-
-### <b><i> Depuis une distribution Linux :</i></b>
-Pour cela, positionnez vous à la racine du projet et saisissez les commandes suivantes :
-
-1. <b><i>Définir les plateforms (Android/IOS)</b></i>
-<pre>cordova platform add android</pre>
-
-2. <b><i>Tester l'état des dépendances / requirements du projet</b></i>
-<pre>cordova requirements</pre>
-Cette commande doit vous retourner le message suivant :
+<code>
 <pre>
-Requirements check results for android:
-Java JDK: installed 1.8.0
-Android SDK: installed true
-Android target: installed android-29,android-28,android-27
-Gradle: installed /usr/share/gradle/bin/gradle
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<span style="color: green;">{# Mot de passe #}</span>';
+flush privileges;
+quit
+</pre>
+</code>
+
+4. Installer phpMyAdmin
+
+<code>
+<pre>
+sudo apt install phpmyadmin
+</pre>
+</code>
+
+5. Configuration phpMyAdmin
+
+Connectez vous à l'adresse http://localhost/phpmyadmin. A cette étape il y trois possibilitées :
+* Soit tout fonctionne est vous arrivé sur la page de connection de phpMyAdmin. Dans ce cas là, sautez cette étape (n°5).
+* Soit vous avez une erreur 404 qui s'affiche sur votre navigateur. A ce moment là, utilisez la commande suivante pour réinstaller phpMyAdmin :
+<code>
+<pre>
+sudo dpkg-reconfigure phpmyadmin
+</pre>
+</code>
+* Soit vous avez une page blanche qui sans message qui s'affiche. Dans ce cas, saisissez les commandes qui suivent (votre ordinateur va redémarrer):
+<code>
+<pre>
+sudo apt install php-mbstring php-gettext;
+reboot
+</pre>
+</code>
+
+A partir de là, vous devez pouvoir accéder à l'interface de phpMyAdmin. Si ce n'est pas le cas, vérifiez que votre serveur Apache2 est en fonction : une page doit s'afficher à l'adresse http://localhost/. Si ce n'est pas le cas, démarrez le service avec la commande suivante :
+<code>
+<pre>
+sudo service apache2 restart
+</pre>
+</code>
+
+Sinon, veuillez vous référez à la documentation officielle.
+
+Pour vous connecter, saisissez les informations de l'utilisateur root (MySQL) que nous avions configuré à l'étape 3.
+
+6. Créer une base de donné sur phpMyAdmin.
+
+Une fois connecté à phpMyAdmin, créez une nouvelle base de données :<br><br>
+<img src="img-readme/creer-bdd.png">
+
+Appelez la <b>captureit</b>, et choisissez l'interclassement <b>utf8mb4_unicode_ci</b> :<br><br>
+<img src="img-readme/nommer_bdd.png">
+
+Nous avons terminé avec la configuration de MySQL.
+
+
+# TRAX-LRS : Installation & Configuration
+
+Concernant TRAX-LRS, nous l'utilisons à partir du serveur de développement de manière à ce qu'il ne soit pas accessible à l'extérieur de votre réseau privé.
+
+## <b>Composer : installation de TRAX LRS</b>
+
+A la racine du projet, saisissez les commandes suivantes.
+
+Sommaire :
+* Installer composer & créer un projet TRAX-LRS
+* Configurer TRAX-LRS et son fichier <b>.env</b>
+* Configuration de la BDD captureit avec l'artisan Laravel
+* Lancer le serveur TRAX-LRS en local
+* Créer un utilisateur admin
+* Créer un utilisateur TRAX-LRS pour générer des Captures
+
+1. Installer composer & créer un projet TRAX-LRS
+<code>
+<pre>
+sudo apt-get install composer;
+composer create-project --prefer-dist --stability rc trax/lrs traxlrs
+</pre>
+</code>
+
+
+2. Configurer TRAX-LRS et son fichier <b>.env</b>
+Complétez le fichier <b>.env</b> dans le repertoire <b>traxlrs/</b> à la racine du projet par :
+<code>
+<pre>
+APP_NAME="TRAX LRS"
+APP_ENV=local
+APP_KEY=<span style="color: green;">{# Conserver la valeur par défaut #}</span>
+APP_DEBUG=true
+APP_URL=http://trax.test
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=captureit
+DB_USERNAME=<span style="color: green;">{# User de votre base de données MYSQL #}</span>
+DB_PASSWORD=<span style="color: green;">{# Password de votre base de données MYSQL #}</span>
+DB_MARIADB=0
+
+SESSION_DRIVER=database
+SESSION_CONNECTION=mysql
+SESSION_LIFETIME=120
+</pre>
+</code>
+
+3. Configuration de la BDD captureit avec l'artisan Laravel
+Saisir ensuite la commande suivante dans le dossier <b>traxlrs/</b> à la racine du projet (crée les éléments dans la base de données) :
+<code>
+<pre>
+php artisan migrate
+</pre>
+</code>
+
+4. Lancer le serveur TRAX-LRS en local
+
+Pour exécuter le serveur en local, se placer dans le dossier trax-lrs et saisir la commande suivante :
+<code>
+<pre>
+php artisan serve
+</pre>
+</code>
+
+Aller ensuite à l'adresse suivante : http://127.0.0.1:8000.
+
+Si vous souhaitez que votre TRAX-LRS soit accessible sur votre réseau local, saisissez la commande suivante :
+
+<code>
+<pre>
+php artisan serve --host=<span style="color: green;">{# Adresse IP machine hôte #}</span>
+</pre>
+</code>
+
+
+5. Créer un utilisateur admin
+
+TRAX-LRS est composé d'une interface web (GUI) permettant de gérer les accès à l'API. L'URL précédente permet d'accéder à cette page qui nécessite des droits d'accès particulier. Pour pouvoir générer un compte permettant de s'y connecter, saisissez la commande suivante :
+<code>
+<pre>
+php artisan user:create-admin <span style="color: green;">{# Saisir une adresse email valide #}</span>
+</pre>
+</code>
+
+Entrez ensuite l'email que vous avez saisi, et le mot de passé généré par le serveur sur l'interface de connexion TRAX-LRS.
+
+Cette première interface vous permet donc de gérer les accès à votre API. Pour utiliser l'API TRAX-LRS (ce qui nous interesse ici), testez tout d'abord que celle-ci fonctionne en vous rendant sur cette adresse : http://127.0.0.1:8000/trax/ws/xapi/about
+
+6. Créer un utilisateur TRAX-LRS pour générer des Captures
+
+Cette étape vous permet de créer un utilisateur pour pouvoir communiquer avec TRAX-LRS, générer des statements (Capture) et les récupérer.
+
+<code>
+<pre>
+php artisan client:create <span style="color: green;">{# Pseudo #}</span> <span style="color: green;">{# Mot de passe #}</span>
+</pre>
+</code>
+
+Pour tester que TRAX-LRS fonctionne, connectez-vous à cette adresse : http://127.0.0.1:8000/trax/ws/xapi/about. Elle doit vous renvoyer un fichier au format JSON. Si ce n'est pas le cas, vérifiez que votre serveur TRAX-LRS est bien lancé, ou que vous êtes connecté à la bonne adresse.
+
+A partir d'ici, vous n'avez plus qu'à transmettre des requêtes en respect avec le standard xAPI pour pouvoir communiquer avec votre serveur. Pour plus d'informations, rendez-vous sur ce dépôt officiel : https://github.com/adlnet/xAPI-Spec/blob/master/xAPI-Communication.md.
+
+Pour plus d'information sur l'utilisation de TRAX-LRS, rendez-vous sur ce dépôt officiel : https://github.com/trax-project/trax-lrs.
+
+# Apache2 : Problème requête CORS
+
+CORS est un protocle implémenté dans les navigateurs web récent, et qui empêche par défaut d'effectuer des requêtes dites "cross-origin" (entre 2 domaines différent). Pour régler ce problème, il faut configurer le serveur Apache2 de manière a autoriser le cross-origin.
+ATTENTION: pour le moment, nous allons autoriser toutes les origins extérieurs car nous sommes en phase de développement. A terme, nous limiterons l'accès uniquement aux domaines nécessaire au bon fonctionnement du service :
+
+Ouvrir le fichier de configuration apache2.conf en superutilisateur, dans la balise "Directory /var/www/", ajouter la ligne suivante :
+<code>
+<pre>
+Header set Access-Control-Allow-Origin "*"
+</pre>
+</code>
+
+## Arborescence du projet
+
+Ci-dessous, l'arborescence du projet CaptureIT. Ce projet étant en pleine phase de développement, il est composé de certain fichier qui ne sont plus utilisés. Ils sont conservés car ils peuvent potentiellement être réutilisés ultérieurement.
+
+<pre>
+├── <span style="color: yellow;">ajax-example-request</span> : dossier contenant les fichiers qui ne sont plus utilisés mais garde un intérêt de réutilisation.
+|   |
+│   ├── <span style="color: yellow;">ajax-client</span> : ancien frontend de CaptureIT qui contient les fichiers permettant d'interroger directement TRAX-LRS en AJAX.
+|   |   |
+│   │   ├── <span style="color: red;">add_capture.html</span> : fichier qui permet de créer une Capture dans TRAX-LRS.
+|   |   |
+│   │   ├── <span style="color: red;">captureit-lib.js</span> : fichier pensé initialement pour contenir l'ensemble des fonction javascript et requête AJAX (librairie CaptureIT incomplète).
+|   |   |
+│   │   ├── <span style="color: red;">sha256.js</span> : librairie importé permettant de chiffrer en sha256. Il est utilisé pour le chiffrement sha2 de l'image dans le statement d'une Capture.
+|   |   |
+│   │   ├── <span style="color: red;">test_get_statement.html</span> : permet de récupérer un statement (Capture) à partir de son ID.
+|   |   |
+│   │   └── <span style="color: red;">test_get_statements.html</span> : permet de récupérer tous les statements (Captures) stockés par TRAX-LRS.
+|   |
+|   ├── <span style="color: yellow;">img</span> : répertoire qui stock les images des Captures.
+|   |
+│   ├── <span style="color: red;">JSON_CaptureIT.json</span> : format JSON d'une Capture.
+|   |
+│   └── <span style="color: red;">save_img.php</span> : code PHP interrogé par le client "add_capture.html", et qui permet d'enregistrer l'image d'une capture. Renvoie le nom de l'image.
+|
+├── <span style="color: yellow;">backend</span> : dossier contenant la dernière version du backend (en cours de développement : non-fonctionnel).
+|   |
+│   ├── <span style="color: red;">create_capture.php</span> : futur script php permettant de créer une Capture.
+|   |
+│   ├── <span style="color: red;">login.php</span> : page permettant de se connecter au service. Elle demande le login/mdp d'un client TRAX-LRS pour se connecter.
+|   |
+│   ├── <span style="color: red;">logout.php</span> : page de déconnexion au service.
+|   |
+│   └── <span style="color: red;">status.php</span> : page qui renvoie le status de la session courante.
+|
+├── <span style="color: yellow;">frontend</span> : dossier contenant la dernière version du frontend (en cours de développement : non-fonctionnel).
+|   |
+│   ├── <span style="color: yellow;">asset</span> : dossier contenant tous les fichiers non-HTML.
+|   |   |
+│   │   └── <span style="color: yellow;">js</span> : dossier contenant tous les scripts JavaScript.
+|   |       |
+│   │       ├── <span style="color: red;">connection.js</span> : script JavaScript permettant de se connecter au service.
+|   |       |
+│   │       ├── <span style="color: red;">index.js</span> : script de la page d'accueil accessible une fois connecté au service.
+|   |       |
+│   │       └── <span style="color: yellow;">lib</span> : contient les librairies importées dans le projet.
+|   |           |
+│   │           ├── <span style="color: red;">jquery.min.js</span>
+|   |           |
+│   │           └── <span style="color: red;">sha256.js</span>
+│   │
+│   ├── <span style="color: red;">connection.html</span> : page HTML proposant une interface sommaire pour se connecter au service.
+│   │
+│   ├── <span style="color: red;">create_capture.html</span> : page HTML proposant une interface sommaire pour créer une capture (non implémenté).
+│   │
+│   ├── <span style="color: red;">display_capture.html</span> : page HTML proposant une interface sommaire pour afficher une capture à partir d'un ID de statement (non implémenté). 
+│   │
+│   └── <span style="color: red;">index.html</span> : page HTML proposant une interface sommaire pour afficher l'ensemble des capture sous forme de "publication" ou "file d'actualité" (non implémenté).
+│
+├── <span style="color: yellow;">img-readme</span> : dossier contenant les images et document utilisé par le README.md.
+│   │
+│   ├── <span style="color: red;">creer-bdd.png</span>
+│   │
+│   └── <span style="color: red;">nommer_bdd.png</span>
+|
+├── <span style="color: red;">LICENSE</span> : licence du projet.
+|
+└── <span style="color: red;">README.md</span>
 </pre>
 
-* Si vous aver une erreur au niveau de la JDK java, veuillez installer Java 8 qui est la version que nous avons utilisé dans le cadre de ce projet (voir les partie précédente sur l'installation de Java 8).
-
-* Pour la partie SDK, vous ne devriez pas avoir de problème si vous êtes passés par l'installation d'Android Studio. Dans le cas contraire, nous vous conseillons de l'installer pour éviter tout problème.
-
-* Pour la partie target, sois vous n'avez pas défini de plarefome android, dans ce cas, saisissez la commande à l'étape 1, sois vous n'êtes pas sur la bonne version de la plateform. Dans ce cas, saisissez la commande suivante :
-<pre>sdkmanager "platforms;android-27"</pre>
-
-* Pour gradle, l'installation d'Android Studio devrait également résoudre votre problème.
-
-3. <b><i>Construire le projet</b></i>
-<pre>cordova build android</pre>
-
-4. <b><i>Branchez votre Smartphone Android et n'oubliez pas d'autoriser le partage de fichier entre votre mobile et votre PC.</b></i>
-
-5. <b><i>Vérifiez que votre mobile est bien détecté par votre PC :</b></i>
-<pre>adb devices</pre>
-Si cela fonctionne, cette commande doit vous retourner un message avec une suite de chiffre. Si ce n'est pas le cas, vérifiez que votre Smartphone est bien connecté à votre PC et que vous avez bien autorisé votre ordinateur à accéder aux fichiers de votre Smartphone Android.
-
-6. <b><i>Déployez l'application sur votre Smartphone Android</b></i>
-<pre>cordova run android</pre>
-
-Et voilà, l'application est déployée !
-
-## <b>Licence</b>
+# Licence
 
 Ce projet est <strong>Open-Source</strong>, et sous licence BSD-2-clause. Pour en savoir plus, se référer à la <b>LICENCE</b>.

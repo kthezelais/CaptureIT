@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a new capture</title>
+</head>
+
+<body>
+
+    <div id="my-form">
+        <p>
+            Connexion<br>
+            <input id="user" type="text" placeholder="Pseudo" />
+            <input id="password" type="password" placeholder="Mot de passe" />
+            <input id="endpoint" type="url" placeholder="URL du endpoint" />
+
+        </p>
+
+        <br><br>
+
+
+        <p>
+            Auteur<br>
+            <input id="lastname" placeholder="Nom" type="text" />
+            <input id="firstname" placeholder="Prénom" type="text" />
+            <input id="email" placeholder="E-mail" type="email" /><br>
+        </p>
+
+        <br><br>
+
+        <p>
+            Information Capture<br>
+            <input id="title" placeholder="Titre" type="text" /><br><br>
+
+            <label for="description">Commentez votre Capture :</label><br>
+
+            <textarea id="description" rows="5" cols="33"></textarea>
+
+        </p>
+
+        <br><br>
+
+        <form id="send-img">
+            <input id="img" name="img" placeholder="Image Capture" type="file" accept="image/*" /><br>
+            <input id="submit-button" type="submit" value="Envoyer" />
+        </form>
+
+
+    </div>
+
+    <p id="trax-lrs-reponse"></p>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="sha256.js"></script>
+    <script src="captureit-lib.js"></script>
+
+    <script>
+        $('#send-img').on('submit', function(event) {
+            var fileSize;
+            var extension;
+            var endPoint = $("#endpoint").val();
+            var user = $("#user").val();
+            var password = $("#password").val();
+            var firstname = $("#firstname").val();
+            var lastname = $("#lastname").val();
+            var email = $("#email").val();
+            var title = $('#title').val();
+            var description = $('#description').val();
+            var formURL = "http://localhost/dev/CaptureIT/ajax-example-request/save_img.php"
+            var fileExtension = ['jpeg', 'jpg', 'png', 'gif'];
+
+            var auth = btoa(user + ':' + password);
+            event.preventDefault();
+
+            if ($('#img').val() != '') {
+                var formData = new FormData($('form')[0]);
+                var hash;
+
+                if ($.inArray($("#img").val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+                    alert('Erreur : seul les format jpeg, jpg, png et gif sont acceptés.');
+                    return;
+                }
+
+                var fileUrl = $.ajax({
+                    async: false,
+                    type: 'POST',
+                    url: formURL,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+
+                    success: function(resultat, statut, erreur) {
+                        console.log("RESULTAT : \n" + JSON.stringify(resultat) + "\n\nSTATUT : " + statut + "\n\nERREUR : " + JSON.stringify(erreur));
+                    },
+
+                    error: function(resultat, statut, erreur) {
+                        console.log("RESULTAT : \n" + JSON.stringify(resultat) + "\n\nSTATUT : " + statut + "\n\nERREUR : " + JSON.stringify(erreur));
+                    }
+                });
+
+                if (fileUrl.status == 200) {
+                    $("#trax-lrs-reponse").text(JSON.stringify(fileUrl.responseJSON));
+                    hash = sha256(fileUrl.responseJSON.path);
+
+                } else {
+                    $("#trax-lrs-reponse").text("Une erreur s'est produite :\n" + JSON.stringify(fileUrl));
+                    return;
+                }
+            } else {
+                $("#trax-lrs-reponse").text("Veuillez indiquer un fichier à importer.");
+                return;
+            }
+
+            extension = $("#img").val().split('.').pop().toLowerCase();
+            fileSize = $("#img")[0].files[0].size;
+
+            data = '{' +
+                '"actor": {' +
+                '"mbox": "mailto:' + email + '",' +
+                '"name": "' + lastname + ' ' + firstname + '",' +
+                '"objectType": "Agent"' +
+                '},' +
+                '"verb": {' +
+                '"id": "http://activitystrea.ms/schema/1.0/add"' +
+                '},' +
+                '"object": {' +
+                '"id": "http://adlnet.gov/expapi/activities/example",' +
+                '"objectType": "Activity"' +
+                '},' +
+                '"attachments": [{' +
+                '"usageType": "http://id.tincanapi.com/attachment/supporting_media",' +
+                '"display": {' +
+                '"fr": "' + title + '"' +
+                '},' +
+                '"description": {' +
+                '"fr": "' + description + '"' +
+                '},' +
+                '"contentType": "image/' + extension + '",' +
+                '"length": ' + fileSize + ',' +
+                '"sha2": "' + hash + '",' +
+                '"fileUrl": "http://' + fileUrl.responseJSON.path + '"' +
+                '}]' +
+                '}';
+
+            console.log("DATA : \n" + data);
+
+            result = $.ajax({
+                beforeSend: function(req) {
+                    req.setRequestHeader("Content-Type", "application/json");
+                    req.setRequestHeader("Authorization", "Basic " + auth);
+                    req.setRequestHeader("X-Experience-API-Version", "1.0.0");
+                    console.log("Headers sucessfully initialized");
+                },
+
+                async: false,
+                url: endPoint + "/trax/ws/xapi/statements",
+                type: "POST",
+                dataType: "json",
+                data: data,
+
+                success: function(resultat, statut, erreur) {
+                    console.log("RESULTAT : \n" + JSON.stringify(resultat) + "\n\nSTATUT : " + statut + "\n\nERREUR : " + JSON.stringify(erreur));
+                },
+
+                error: function(resultat, statut, erreur) {
+                    console.log("RESULTAT : \n" + JSON.stringify(resultat) + "\n\nSTATUT : " + statut + "\n\nERREUR : " + JSON.stringify(erreur));
+                }
+
+            });
+
+            if (result.status == 200) {
+                $("#trax-lrs-reponse").text(JSON.stringify(result.responseJSON));
+
+            } else {
+                $("#trax-lrs-reponse").text("Une erreur s'est produite");
+
+            }
+
+        });
+    </script>
+
+</body>
+
+</html>

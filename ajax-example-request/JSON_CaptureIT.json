@@ -1,0 +1,37 @@
+{
+    "verb": {
+        "id": "http://activitystrea.ms/schema/1.0/add"
+    },
+    "actor": {
+        "mbox": "mailto:killian.thezelais@imt-atlantique.net",
+        "name": "THEZELAIS Killian",
+        "objectType": "Agent"
+    },
+    "object": {
+        "id": "http://adlnet.gov/expapi/activities/example",
+        "objectType": "Activity"
+    },
+    "stored": "2020-03-28T11:17:27.7009Z",
+    "version": "1.0.0",
+    "authority": {
+        "account": {
+            "name": "traxlrs",
+            "homePage": "http://trax.test"
+        },
+        "objectType": "Agent"
+    },
+    "timestamp": "2020-03-28T11:17:27.7009Z",
+    "attachments": [{
+        "sha2": "6f63cc4f7a22cc1dfd1c2c9cd3c616474ab6cc41a46e3618b07128a53a593064",
+        "length": 443899,
+        "display": {
+            "fr": "Capture"
+        },
+        "fileUrl": "http://img/Background(7).jpg",
+        "usageType": "http://id.tincanapi.com/attachment/supporting_media",
+        "contentType": "image/jpg",
+        "description": {
+            "fr": "ma super capture !"
+        }
+    }]
+}

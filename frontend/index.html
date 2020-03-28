@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CaptureIT</title>
+    <script type="text/javascript" src="data.js"></script>
+    <script src="asset/js/lib/jquery.min.js"></script>
+</head>
+
+<body>
+    <script>
+        var url = data.backend + "status.php";
+
+        var result = $.ajax({
+            async: false,
+            url: url,
+            type: "GET",
+
+            success: function(resultat, statut, erreur) {
+                console.log("RESULTAT : \n" + JSON.stringify(resultat) + "\n\nSTATUT : " + statut + "\n\nERREUR : " + JSON.stringify(erreur));
+            },
+
+            error: function(resultat, statut, erreur) {
+                console.log("RESULTAT : \n" + JSON.stringify(resultat) + "\n\nSTATUT : " + statut + "\n\nERREUR : " + JSON.stringify(erreur));
+            }
+
+        });
+
+        alert(JSON.stringify(result));
+
+        if (result.status == 440) {
+            document.location.href = "connection.html";
+        }
+    </script>
+
+    <section>
+
+        <article>
+
+            <input id="button-disconnect" type="button" value="Déconnexion"><br>
+
+        </article>
+
+        <article>
+            <p id="result"></p>
+        </article>
+
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="asset/js/index.js"></script>
+
+</body>
+
+</html>

@@ -2,3 +2,7 @@ p-403-poc-ihm
 app/platforms
 app/plugins
 app/node_modules
+traxlrs
+node_modules
+.gitignore
+api/img
